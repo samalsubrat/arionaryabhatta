@@ -58,8 +58,8 @@
 &pro_micro_i2c {
 	status = "okay";
 
-	oled: sh1106@3c {
-		compatible = "sinowealth,sh1106";
+	oled: ssd1306@3c {
+		compatible = "solomon,ssd1306fb";
 		reg = <0x3c>;
 		label = "DISPLAY";
 		width = <128>;
@@ -68,9 +68,8 @@
 		page-offset = <0>;
 		display-offset = <0>;
 		multiplex-ratio = <63>;
+		segment-remap;
+		com-invdir;
 		prechargep = <0x22>;
-		inversion-on;
-        com-invdir;
-        segment-remap;
 	};
 };
