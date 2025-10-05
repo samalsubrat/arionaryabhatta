@@ -10,6 +10,7 @@
     layout0: layout_0 {
         compatible = "zmk,physical-layout";
 		display-name = "Arion Arybhatta";
+		transform = <&default_transform>; 
         keys = <
             0 1     // RC(0,0) RC(0,3)
             2 3 4 5 // RC(1,0 - 1,3)
