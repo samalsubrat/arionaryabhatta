@@ -13,7 +13,7 @@
 
 		default_layer {
 			bindings = <
-		&kp ESC                                                  &kp SPACE
+		&studio_unlock                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
@@ -26,7 +26,7 @@
 
 		right {
 			bindings = <
-		&kp ESC                                                  &kp SPACE
+		&studio_unlock                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
@@ -37,7 +37,7 @@
 
 		left {
 			bindings = <
-		&kp ESC                                                  &kp SPACE
+		&studio_unlock                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
@@ -48,7 +48,7 @@
 
 		control {
 			bindings = <
-		&kp ESC                                                  &kp SPACE
+		&studio_unlock                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
