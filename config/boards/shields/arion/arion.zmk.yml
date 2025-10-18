@@ -6,7 +6,7 @@ requires: [pro_micro]
 exposes: [i2c_oled]
 features:
   - keys
-#  - studio
+  - studio
   - display
   - encoder
   - underglow
