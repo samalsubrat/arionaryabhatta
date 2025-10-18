@@ -1,9 +1,11 @@
  #include <dt-bindings/zmk/matrix_transform.h>
 
+ #include "arion-layouts.dtsi"
+
 / {
     chosen {
         zmk,kscan = &kscan0;
-		zmk,matrix-transform = &default_transform;
+		zmk,physical_layout = &default_layout;
 		zephyr,display = &oled;
     };
 
@@ -12,12 +14,12 @@
 		columns = <6>;
 		rows = <4>;
 		map = <
-	        RC(0,0) RC(0,3)
+	        RC(0,0)                 RC(0,3)
             RC(1,0) RC(1,1) RC(1,2) RC(1,3) 
             RC(2,0) RC(2,1) RC(2,2) 
             RC(3,0) RC(3,1) RC(3,2) RC(3,3)
             RC(4,0) RC(4,1) RC(4,2)    
-            RC(5,0) RC(5,2) RC(5,3) 
+            RC(5,0)         RC(5,2) RC(5,3) 
 		>;
 	};
 
@@ -39,7 +41,7 @@
                     <&gpio1 04 GPIO_ACTIVE_HIGH>;
     };
 	
-		encoder: encoder {
+	encoder: encoder {
 		compatible = "alps,ec11";
 		label = "ENCODER";
 		a-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;

@@ -1,12 +1,15 @@
 file_format: "1"
-id: arionrev1
+id: arion
 name: arion
 type: shield
-requires: [pro_micro]
-exposes: [i2c_oled]
+requires:
+  - pro_micro
+exposes:
+  - i2c_oled
 features:
   - keys
   - studio
   - display
   - encoder
   - underglow
+
