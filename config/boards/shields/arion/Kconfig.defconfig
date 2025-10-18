@@ -1,12 +1,10 @@
-if SHIELD_fine40
+if SHIELD_ARION
 
 config ZMK_KEYBOARD_NAME
     default "arion"
 
 config I2C
 	default y
-
-
 
 if LVGL
 
@@ -25,5 +23,4 @@ endchoice
 
 endif # LVGL
 
-endif
-
+endif # SHIELD_ARION
