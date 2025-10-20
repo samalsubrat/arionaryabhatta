@@ -1,38 +1,47 @@
+/*
+ * ZMK Physical Layout file for the Numpad
+ *
+ * The `keys` array defines the physical properties (width, height, x, y)
+ * for each of the 18 keys on the board.
+ *
+ * IMPORTANT: The order of the keys in this list MUST exactly match the
+ * order of the bindings in your `.keymap` file.
+ */
+
 #include <physical_layouts.dtsi>
 
 / {
     default_layout: default_layout {
         compatible = "zmk,physical-layout";
-        display-name = "Default";
-        transform = <&default_transform>;
-        kscan = <&kscan0>;
+        display-name = "Custom Numpad";
+        transform = <&default_transform>; // Board-specific transform, leave as-is
+        kscan = <&kscan0>;                // Board-specific kscan, leave as-is
 
-        keys  //                     w   h    x    y     rot    rx    ry
-            // Row 0 - Top row (ESC, SPACE)
-            = <&key_physical_attrs 100 100    0    0       0     0     0>
-            , <&key_physical_attrs 100 100  300    0       0     0     0>
-            // Row 1 - Second row (4 keys)
-            , <&key_physical_attrs 100 100    0  100       0     0     0>
-            , <&key_physical_attrs 100 100  100  100       0     0     0>
-            , <&key_physical_attrs 100 100  200  100       0     0     0>
-            , <&key_physical_attrs 100 100  300  100       0     0     0>
-            // Row 2 - Third row (3 keys)
-            , <&key_physical_attrs 100 100    0  200       0     0     0>
-            , <&key_physical_attrs 100 100  100  200       0     0     0>
-            , <&key_physical_attrs 100 100  200  200       0     0     0>
-            // Row 3 - Fourth row (7, 8, 9 and tall + on right) - bindings pos 9,10,11,12
-            , <&key_physical_attrs 100 100    0  300       0     0     0>
-            , <&key_physical_attrs 100 100  100  300       0     0     0>
-            , <&key_physical_attrs 100 100  200  300       0     0     0>
-            , <&key_physical_attrs 100 200  300  300       0     0     0>
-            // Row 4 - Fifth row (4, 5, 6) - bindings pos 13,14,15
-            , <&key_physical_attrs 100 100    0  400       0     0     0>
-            , <&key_physical_attrs 100 100  100  400       0     0     0>
-            , <&key_physical_attrs 100 100  200  400       0     0     0>
-            // Row 5 - Sixth row (0, Del, tall Enter) - bindings pos 16,17,18
-            , <&key_physical_attrs 200 100    0  500       0     0     0>
-            , <&key_physical_attrs 100 100  200  500       0     0     0>
-            , <&key_physical_attrs 100 200  300  400       0     0     0>
-            ;
+        keys //                                     w    h     x     y    rot rx ry
+             // Key 0: Top-left corner key
+           = <&key_physical_attrs                 100  100     0     0    0 0 0>
+             // Row 1: Num Lock, /, *, -
+           , <&key_physical_attrs                 100  100     0   105    0 0 0>
+           , <&key_physical_attrs                 100  100   105   105    0 0 0>
+           , <&key_physical_attrs                 100  100   210   105    0 0 0>
+           , <&key_physical_attrs                 100  100   315   105    0 0 0>
+             // Row 2: 7, 8, 9, and the tall '+' key
+           , <&key_physical_attrs                 100  100     0   210    0 0 0>
+           , <&key_physical_attrs                 100  100   105   210    0 0 0>
+           , <&key_physical_attrs                 100  100   210   210    0 0 0>
+           , <&key_physical_attrs                 100  205   315   210    0 0 0> // '+' key (1x2U)
+             // Row 3: 4, 5, 6
+           , <&key_physical_attrs                 100  100     0   315    0 0 0>
+           , <&key_physical_attrs                 100  100   105   315    0 0 0>
+           , <&key_physical_attrs                 100  100   210   315    0 0 0>
+             // Row 4: 1, 2, 3, and the tall 'Enter' key
+           , <&key_physical_attrs                 100  100     0   420    0 0 0>
+           , <&key_physical_attrs                 100  100   105   420    0 0 0>
+           , <&key_physical_attrs                 100  100   210   420    0 0 0>
+           , <&key_physical_attrs                 100  205   315   420    0 0 0> // 'Enter' key (1x2U)
+             // Row 5: Wide '0' key and '.' key
+           , <&key_physical_attrs                 205  100     0   525    0 0 0> // '0' key (2x1U)
+           , <&key_physical_attrs                 100  100   210   525    0 0 0>
+           ;
     };
 };
