@@ -1,6 +1,6 @@
  #include <dt-bindings/zmk/matrix_transform.h>
 
- #include "arion-layouts.dtsi"
+ #include "arionaryabhatta-layouts.dtsi"
 
 / {
     chosen {
