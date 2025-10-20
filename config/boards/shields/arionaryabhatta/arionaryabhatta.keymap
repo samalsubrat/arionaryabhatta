@@ -22,7 +22,7 @@
 		default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp MUTE
+		        &bootloader                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
@@ -34,7 +34,7 @@
 		right {
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp MUTE
+		        &bootloader                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
@@ -46,7 +46,7 @@
 		left {
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp MUTE
+		        &bootloader                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
@@ -58,7 +58,7 @@
 		control {
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp MUTE
+		        &bootloader                                                  &kp SPACE
                 &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
                 &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
                 &kp N4              &kp N5              &kp N6           &kp MINUS 
