@@ -1,7 +1,7 @@
-if SHIELD_ARION
+if SHIELD_arionaryabhatta
 
 config ZMK_KEYBOARD_NAME
-    default "arion"
+    default "arionaryabhatta"
 
 config I2C
 	default y
@@ -23,4 +23,4 @@ endchoice
 
 endif # LVGL
 
-endif # SHIELD_ARION
+endif # SHIELD_arionaryabhatta
