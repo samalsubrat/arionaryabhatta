@@ -61,7 +61,7 @@
 	status = "okay";
 
 	oled: ssd1306@3c {
-		compatible = "sinowealth,ssd1306";
+		compatible = "solomon,ssd1306fb";
 		reg = <0x3c>;
 		label = "DISPLAY";
 		width = <128>;
@@ -71,8 +71,8 @@
 		display-offset = <0>;
 		multiplex-ratio = <63>;
 		prechargep = <0x22>;
+		segment-remap;
+		com-invdir;
 		inversion-on;
-        com-invdir;
-        segment-remap;
 	};
 };
