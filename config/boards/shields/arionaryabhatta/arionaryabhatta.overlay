@@ -60,8 +60,8 @@
 &pro_micro_i2c {
 	status = "okay";
 
-	oled: sh1106@3c {
-		compatible = "sinowealth,sh1106";
+	oled: ssd1306@3c {
+		compatible = "sinowealth,ssd1306";
 		reg = <0x3c>;
 		label = "DISPLAY";
 		width = <128>;
