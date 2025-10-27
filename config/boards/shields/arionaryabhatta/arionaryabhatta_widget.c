@@ -7,143 +7,136 @@
 #include <zephyr/logging/log.h>
 
 #include <zmk/display.h>
-#include <zmk/display/widgets/battery_status.h>
 #include <zmk/usb.h>
 #include <zmk/ble.h>
-#include <zmk/events/usb_conn_state_changed.h>
-#include <zmk/event_manager.h>
-#include <zmk/events/battery_state_changed.h>
 #include <zmk/battery.h>
 
 #include <lvgl.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-struct zmk_widget_status {
-    sys_snode_t node;
-    lv_obj_t *obj;
+static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+
+struct status_widget_state {
     lv_obj_t *connection_icon;
     lv_obj_t *time_label;
     lv_obj_t *date_label;
     lv_obj_t *battery_icon;
 };
 
-static struct k_work_delayable time_update_work;
+static struct status_widget_state state;
 
-// WiFi icon symbols (using LVGL symbols)
+// WiFi icon symbols
 #define WIFI_ICON LV_SYMBOL_WIFI
 #define NO_WIFI_ICON "  "
 
-static void update_connection_icon(lv_obj_t *icon) {
-    if (icon == NULL) {
+static void set_connection_status() {
+    if (state.connection_icon == NULL) {
         return;
     }
     
     if (zmk_usb_is_powered() || zmk_ble_active_profile_is_connected()) {
-        lv_label_set_text(icon, WIFI_ICON);
+        lv_label_set_text(state.connection_icon, WIFI_ICON);
     } else {
-        lv_label_set_text(icon, NO_WIFI_ICON);
+        lv_label_set_text(state.connection_icon, NO_WIFI_ICON);
     }
 }
 
-static void update_time_display(lv_obj_t *label) {
-    if (label == NULL) {
-        return;
-    }
-    
-    // Get current uptime and convert to time format
-    int64_t uptime_ms = k_uptime_get();
-    int total_seconds = (uptime_ms / 1000) % 86400; // Wrap at 24 hours
-    int hours = (total_seconds / 3600) % 24;
-    int minutes = (total_seconds % 3600) / 60;
-    
-    char time_str[6];
-    snprintf(time_str, sizeof(time_str), "%02d:%02d", hours, minutes);
-    lv_label_set_text(label, time_str);
-}
-
-static void update_battery_icon(lv_obj_t *icon) {
-    if (icon == NULL) {
+static void set_battery_status() {
+    if (state.battery_icon == NULL) {
         return;
     }
     
     uint8_t battery_level = zmk_battery_state_of_charge();
     
-    // Battery icon based on level
     if (battery_level > 80) {
-        lv_label_set_text(icon, LV_SYMBOL_BATTERY_FULL);
+        lv_label_set_text(state.battery_icon, LV_SYMBOL_BATTERY_FULL);
     } else if (battery_level > 60) {
-        lv_label_set_text(icon, LV_SYMBOL_BATTERY_3);
+        lv_label_set_text(state.battery_icon, LV_SYMBOL_BATTERY_3);
     } else if (battery_level > 40) {
-        lv_label_set_text(icon, LV_SYMBOL_BATTERY_2);
+        lv_label_set_text(state.battery_icon, LV_SYMBOL_BATTERY_2);
     } else if (battery_level > 20) {
-        lv_label_set_text(icon, LV_SYMBOL_BATTERY_1);
+        lv_label_set_text(state.battery_icon, LV_SYMBOL_BATTERY_1);
     } else {
-        lv_label_set_text(icon, LV_SYMBOL_BATTERY_EMPTY);
+        lv_label_set_text(state.battery_icon, LV_SYMBOL_BATTERY_EMPTY);
     }
 }
 
-static void time_update_work_handler(struct k_work *work) {
-    // This will be called every second - update time for all widgets
-    // For simplicity, we'll handle updates in the main init function
+static void update_time() {
+    if (state.time_label == NULL) {
+        return;
+    }
+    
+    int64_t uptime_ms = k_uptime_get();
+    int total_seconds = (uptime_ms / 1000) % 86400;
+    int hours = (total_seconds / 3600) % 24;
+    int minutes = (total_seconds % 3600) / 60;
+    
+    char time_str[6];
+    snprintf(time_str, sizeof(time_str), "%02d:%02d", hours, minutes);
+    lv_label_set_text(state.time_label, time_str);
 }
 
-int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
-    widget->obj = lv_obj_create(parent);
-    lv_obj_set_size(widget->obj, 128, 64);
+static void status_screen_init() {
+    lv_obj_t *screen = lv_scr_act();
     
-    // Set background to black
-    lv_obj_set_style_bg_color(widget->obj, lv_color_black(), LV_PART_MAIN);
-    lv_obj_set_style_border_width(widget->obj, 0, LV_PART_MAIN);
-    lv_obj_set_style_pad_all(widget->obj, 0, LV_PART_MAIN);
+    // Set black background
+    lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
     
-    // ====== TOP ROW: WiFi Icon, Date, Battery ======
-    lv_obj_t *top_row = lv_obj_create(widget->obj);
-    lv_obj_set_size(top_row, 128, 20);
-    lv_obj_set_pos(top_row, 0, 0);
-    lv_obj_set_style_bg_opa(top_row, LV_OPA_TRANSP, LV_PART_MAIN);
-    lv_obj_set_style_border_width(top_row, 0, LV_PART_MAIN);
-    lv_obj_set_style_pad_all(top_row, 2, LV_PART_MAIN);
+    // Top status bar container
+    lv_obj_t *top_bar = lv_obj_create(screen);
+    lv_obj_set_size(top_bar, 128, 16);
+    lv_obj_align(top_bar, LV_ALIGN_TOP_MID, 0, 0);
+    lv_obj_set_style_bg_opa(top_bar, LV_OPA_TRANSP, LV_PART_MAIN);
+    lv_obj_set_style_border_width(top_bar, 0, LV_PART_MAIN);
+    lv_obj_set_style_pad_all(top_bar, 0, LV_PART_MAIN);
     
-    // WiFi Icon (left)
-    widget->connection_icon = lv_label_create(top_row);
-    lv_obj_align(widget->connection_icon, LV_ALIGN_LEFT_MID, 0, 0);
-    lv_obj_set_style_text_color(widget->connection_icon, lv_color_white(), LV_PART_MAIN);
-    lv_label_set_text(widget->connection_icon, WIFI_ICON);
+    // WiFi icon (left)
+    state.connection_icon = lv_label_create(top_bar);
+    lv_obj_align(state.connection_icon, LV_ALIGN_LEFT_MID, 2, 0);
+    lv_obj_set_style_text_color(state.connection_icon, lv_color_white(), LV_PART_MAIN);
     
     // Date (center)
-    widget->date_label = lv_label_create(top_row);
-    lv_obj_align(widget->date_label, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_set_style_text_color(widget->date_label, lv_color_white(), LV_PART_MAIN);
-    lv_label_set_text(widget->date_label, "27/10/2025");
+    state.date_label = lv_label_create(top_bar);
+    lv_obj_align(state.date_label, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_style_text_color(state.date_label, lv_color_white(), LV_PART_MAIN);
+    lv_label_set_text(state.date_label, "27/10/2025");
     
-    // Battery Icon (right)
-    widget->battery_icon = lv_label_create(top_row);
-    lv_obj_align(widget->battery_icon, LV_ALIGN_RIGHT_MID, 0, 0);
-    lv_obj_set_style_text_color(widget->battery_icon, lv_color_white(), LV_PART_MAIN);
-    lv_label_set_text(widget->battery_icon, LV_SYMBOL_BATTERY_FULL);
+    // Battery icon (right)
+    state.battery_icon = lv_label_create(top_bar);
+    lv_obj_align(state.battery_icon, LV_ALIGN_RIGHT_MID, -2, 0);
+    lv_obj_set_style_text_color(state.battery_icon, lv_color_white(), LV_PART_MAIN);
     
-    // ====== MAIN TIME DISPLAY ======
-    widget->time_label = lv_label_create(widget->obj);
-    lv_obj_align(widget->time_label, LV_ALIGN_CENTER, 0, 5);
-    lv_obj_set_style_text_color(widget->time_label, lv_color_white(), LV_PART_MAIN);
+    // Large time display
+    state.time_label = lv_label_create(screen);
+    lv_obj_align(state.time_label, LV_ALIGN_CENTER, 0, 8);
+    lv_obj_set_style_text_color(state.time_label, lv_color_white(), LV_PART_MAIN);
     
-    // Set large font for time
-    static lv_style_t time_style;
-    lv_style_init(&time_style);
-    lv_style_set_text_font(&time_style, &lv_font_montserrat_48);
-    lv_obj_add_style(widget->time_label, &time_style, LV_PART_MAIN);
+    // Try to use large font if available
+#if CONFIG_LV_FONT_MONTSERRAT_48
+    lv_obj_set_style_text_font(state.time_label, &lv_font_montserrat_48, LV_PART_MAIN);
+#else
+    lv_obj_set_style_text_font(state.time_label, &lv_font_montserrat_32, LV_PART_MAIN);
+#endif
     
-    lv_label_set_text(widget->time_label, "20:20");
-    
-    // Initialize values
-    update_connection_icon(widget->connection_icon);
-    update_battery_icon(widget->battery_icon);
-    update_time_display(widget->time_label);
-    
+    // Initialize all displays
+    set_connection_status();
+    set_battery_status();
+    update_time();
+}
+
+static lv_obj_t *status_screen_create(lv_obj_t *parent) {
+    status_screen_init();
+    return NULL;
+}
+
+static struct zmk_display_status_screen status_screen = {
+    .screen_create_cb = status_screen_create,
+};
+
+static int status_screen_register(void) {
+    zmk_display_status_screen_register(&status_screen);
     return 0;
 }
 
-lv_obj_t *zmk_widget_status_obj(struct zmk_widget_status *widget) {
-    return widget->obj;
-}
+SYS_INIT(status_screen_register, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
