@@ -7,6 +7,7 @@
 #include <zephyr/logging/log.h>
 
 #include <zmk/display.h>
+#include <zmk/display/status_screen.h>
 #include <zmk/usb.h>
 #include <zmk/ble.h>
 #include <zmk/battery.h>
@@ -17,14 +18,21 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
-struct status_widget_state {
+LV_IMG_DECLARE(balloon);
+
+struct status_state {
     lv_obj_t *connection_icon;
     lv_obj_t *time_label;
     lv_obj_t *date_label;
     lv_obj_t *battery_icon;
 };
 
-static struct status_widget_state state;
+static struct status_state state = {
+    .connection_icon = NULL,
+    .time_label = NULL,
+    .date_label = NULL,
+    .battery_icon = NULL
+};
 
 // WiFi icon symbols
 #define WIFI_ICON LV_SYMBOL_WIFI
@@ -77,8 +85,8 @@ static void update_time() {
     lv_label_set_text(state.time_label, time_str);
 }
 
-static void status_screen_init() {
-    lv_obj_t *screen = lv_scr_act();
+lv_obj_t *zmk_display_status_screen() {
+    lv_obj_t *screen = lv_obj_create(NULL);
     
     // Set black background
     lv_obj_set_style_bg_color(screen, lv_color_black(), LV_PART_MAIN);
@@ -115,7 +123,7 @@ static void status_screen_init() {
     // Try to use large font if available
 #if CONFIG_LV_FONT_MONTSERRAT_48
     lv_obj_set_style_text_font(state.time_label, &lv_font_montserrat_48, LV_PART_MAIN);
-#else
+#elif CONFIG_LV_FONT_MONTSERRAT_32
     lv_obj_set_style_text_font(state.time_label, &lv_font_montserrat_32, LV_PART_MAIN);
 #endif
     
@@ -123,20 +131,6 @@ static void status_screen_init() {
     set_connection_status();
     set_battery_status();
     update_time();
+    
+    return screen;
 }
-
-static lv_obj_t *status_screen_create(lv_obj_t *parent) {
-    status_screen_init();
-    return NULL;
-}
-
-static struct zmk_display_status_screen status_screen = {
-    .screen_create_cb = status_screen_create,
-};
-
-static int status_screen_register(void) {
-    zmk_display_status_screen_register(&status_screen);
-    return 0;
-}
-
-SYS_INIT(status_screen_register, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
