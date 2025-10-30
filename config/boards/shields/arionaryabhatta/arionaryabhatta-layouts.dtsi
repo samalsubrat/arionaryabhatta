@@ -18,30 +18,31 @@
         kscan = <&kscan0>;                // Board-specific kscan, leave as-is
 
         keys //                                     w    h     x     y    rot rx ry
-             // Key 0: Top-left corner key
-           = <&key_physical_attrs                 100  100     0     0    0 0 0>
-             // Row 1: Num Lock, /, *, -
-           , <&key_physical_attrs                 100  100     0   105    0 0 0>
-           , <&key_physical_attrs                 100  100   105   105    0 0 0>
-           , <&key_physical_attrs                 100  100   210   105    0 0 0>
-           , <&key_physical_attrs                 100  100   315   105    0 0 0>
-             // Row 2: 7, 8, 9, and the tall '+' key
-           , <&key_physical_attrs                 100  100     0   210    0 0 0>
-           , <&key_physical_attrs                 100  100   105   210    0 0 0>
-           , <&key_physical_attrs                 100  100   210   210    0 0 0>
-           , <&key_physical_attrs                 100  205   315   210    0 0 0> // '+' key (1x2U)
-             // Row 3: 4, 5, 6
-           , <&key_physical_attrs                 100  100     0   315    0 0 0>
-           , <&key_physical_attrs                 100  100   105   315    0 0 0>
-           , <&key_physical_attrs                 100  100   210   315    0 0 0>
-             // Row 4: 1, 2, 3, and the tall 'Enter' key
-           , <&key_physical_attrs                 100  100     0   420    0 0 0>
-           , <&key_physical_attrs                 100  100   105   420    0 0 0>
-           , <&key_physical_attrs                 100  100   210   420    0 0 0>
-           , <&key_physical_attrs                 100  205   315   420    0 0 0> // 'Enter' key (1x2U)
-             // Row 5: Wide '0' key and '.' key
-           , <&key_physical_attrs                 205  100     0   525    0 0 0> // '0' key (2x1U)
-           , <&key_physical_attrs                 100  100   210   525    0 0 0>
+             // Row 0: bootloader (top-left) and SPACE (top-right)
+           = <&key_physical_attrs                 100  100     0     0    0 0 0>  // bootloader
+           , <&key_physical_attrs                 100  100   315     0    0 0 0>  // SPACE
+             // Row 1: RGB_TOG, /, *, -
+           , <&key_physical_attrs                 100  100     0   105    0 0 0>  // RGB_TOG
+           , <&key_physical_attrs                 100  100   105   105    0 0 0>  // SLASH
+           , <&key_physical_attrs                 100  100   210   105    0 0 0>  // STAR
+           , <&key_physical_attrs                 100  100   315   105    0 0 0>  // MINUS
+             // Row 2: 7, 8, 9
+           , <&key_physical_attrs                 100  100     0   210    0 0 0>  // N7
+           , <&key_physical_attrs                 100  100   105   210    0 0 0>  // N8
+           , <&key_physical_attrs                 100  100   210   210    0 0 0>  // N9
+             // Row 3: 4, 5, 6, and the tall '+' key
+           , <&key_physical_attrs                 100  100     0   315    0 0 0>  // N4
+           , <&key_physical_attrs                 100  100   105   315    0 0 0>  // N5
+           , <&key_physical_attrs                 100  100   210   315    0 0 0>  // N6
+           , <&key_physical_attrs                 100  205   315   210    0 0 0>  // PLUS (2U tall, spans row 2-3)
+             // Row 4: 1, 2, 3
+           , <&key_physical_attrs                 100  100     0   420    0 0 0>  // N1
+           , <&key_physical_attrs                 100  100   105   420    0 0 0>  // N2
+           , <&key_physical_attrs                 100  100   210   420    0 0 0>  // N3
+             // Row 5: Wide '0' key, '.', and tall 'Enter' key
+           , <&key_physical_attrs                 205  100     0   525    0 0 0>  // N0 (2U wide)
+           , <&key_physical_attrs                 100  100   210   525    0 0 0>  // DOT
+           , <&key_physical_attrs                 100  205   315   420    0 0 0>  // ENTER (2U tall, spans row 4-5)
            ;
     };
 };
