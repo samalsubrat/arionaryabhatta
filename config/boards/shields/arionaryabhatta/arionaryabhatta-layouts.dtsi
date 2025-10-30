@@ -13,7 +13,7 @@
 / {
     default_layout: default_layout {
         compatible = "zmk,physical-layout";
-        display-name = "Custom Numpad";
+        display-name = "Arion Aryabhatta";
         transform = <&default_transform>; // Board-specific transform, leave as-is
         kscan = <&kscan0>;                // Board-specific kscan, leave as-is
 
