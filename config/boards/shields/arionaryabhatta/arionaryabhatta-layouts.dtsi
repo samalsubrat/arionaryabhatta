@@ -26,23 +26,23 @@
            , <&key_physical_attrs                 100  100   105   105    0 0 0>  // 3: SLASH
            , <&key_physical_attrs                 100  100   210   105    0 0 0>  // 4: STAR
            , <&key_physical_attrs                 100  100   315   105    0 0 0>  // 5: MINUS
-             // Row 2: 7, 8, 9
+             // Row 2: 7, 8, 9, PLUS (tall key starts here)
            , <&key_physical_attrs                 100  100     0   210    0 0 0>  // 6: N7
            , <&key_physical_attrs                 100  100   105   210    0 0 0>  // 7: N8
            , <&key_physical_attrs                 100  100   210   210    0 0 0>  // 8: N9
-             // Row 3: 4, 5, 6, PLUS (tall key physically starting at row 2)
-           , <&key_physical_attrs                 100  100     0   315    0 0 0>  // 9: N4
-           , <&key_physical_attrs                 100  100   105   315    0 0 0>  // 10: N5
-           , <&key_physical_attrs                 100  100   210   315    0 0 0>  // 11: N6
-           , <&key_physical_attrs                 100  205   315   210    0 0 0>  // 12: PLUS (2U tall, spans row 2-3)
-             // Row 4: 1, 2, 3
+           , <&key_physical_attrs                 100  205   315   210    0 0 0>  // 9: PLUS (2U tall, spans row 2-3)
+             // Row 3: 4, 5, 6
+           , <&key_physical_attrs                 100  100     0   315    0 0 0>  // 10: N4
+           , <&key_physical_attrs                 100  100   105   315    0 0 0>  // 11: N5
+           , <&key_physical_attrs                 100  100   210   315    0 0 0>  // 12: N6
+             // Row 4: 1, 2, 3, ENTER (tall key starts here)
            , <&key_physical_attrs                 100  100     0   420    0 0 0>  // 13: N1
            , <&key_physical_attrs                 100  100   105   420    0 0 0>  // 14: N2
            , <&key_physical_attrs                 100  100   210   420    0 0 0>  // 15: N3
-             // Row 5: Wide '0' key, '.', ENTER (tall key physically starting at row 4)
-           , <&key_physical_attrs                 205  100     0   525    0 0 0>  // 16: N0 (2U wide)
-           , <&key_physical_attrs                 100  100   210   525    0 0 0>  // 17: DOT
-           , <&key_physical_attrs                 100  205   315   420    0 0 0>  // 18: ENTER (2U tall, spans row 4-5)
+           , <&key_physical_attrs                 100  205   315   420    0 0 0>  // 16: ENTER (2U tall, spans row 4-5)
+             // Row 5: Wide '0' key, '.'
+           , <&key_physical_attrs                 205  100     0   525    0 0 0>  // 17: N0 (2U wide)
+           , <&key_physical_attrs                 100  100   210   525    0 0 0>  // 18: DOT
            ;
     };
 };
