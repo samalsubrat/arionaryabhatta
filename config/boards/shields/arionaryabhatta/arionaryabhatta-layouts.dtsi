@@ -24,7 +24,7 @@
              // Row 1: RGB_TOG, /, *, -
            , <&key_physical_attrs                 100  100     0   105    0 0 0>  // 2: RGB_TOG
            , <&key_physical_attrs                 100  100   105   105    0 0 0>  // 3: SLASH
-           , <&key_physical_attrs                 100  100   210   105    0 0 0>  // 4: STAR
+           , <&key_physical_attrs                 100  100   210   105    0 0 0>  // 4: STAR (swapped with N8)
            , <&key_physical_attrs                 100  100   315   105    0 0 0>  // 5: MINUS
              // Row 2: 7, 8, 9, PLUS (tall key starts here)
            , <&key_physical_attrs                 100  100     0   210    0 0 0>  // 6: N7
