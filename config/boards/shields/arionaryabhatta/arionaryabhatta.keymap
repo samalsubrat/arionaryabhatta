@@ -22,48 +22,48 @@
 		default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp SPACE
-                &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
-                &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
-                &kp N4              &kp N5              &kp N6           &kp MINUS 
+		        &bootloader                                                &kp SPACE
+                &rgb_ug RGB_TOG     &kp SLASH           &kp STAR           &kp MINUS      
+                &kp N7              &kp N8              &kp N9   
+                &kp N4              &kp N5              &kp N6             &kp PLUS 
                 &kp N1              &kp N2              &kp N3 
-                &kp N0              &kp GRAVE           &kp ENTER
+                &kp N0              &kp DOT             &kp ENTER
 			>;			
 		};
 
 		right {
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp SPACE
-                &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
-                &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
-                &kp N4              &kp N5              &kp N6           &kp MINUS 
+		        &bootloader                                                &kp SPACE
+                &rgb_ug RGB_TOG     &kp SLASH           &kp STAR           &kp MINUS      
+                &kp N7              &kp N8              &kp N9   
+                &kp N4              &kp N5              &kp N6             &kp PLUS 
                 &kp N1              &kp N2              &kp N3 
-                &kp N0              &kp GRAVE           &kp ENTER
+                &kp N0              &kp DOT             &kp ENTER
 			>;
 		};
 
 		left {
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp SPACE
-                &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
-                &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
-                &kp N4              &kp N5              &kp N6           &kp MINUS 
+		        &bootloader                                                &kp SPACE
+                &rgb_ug RGB_TOG     &kp SLASH           &kp STAR           &kp MINUS      
+                &kp N7              &kp N8              &kp N9   
+                &kp N4              &kp N5              &kp N6             &kp PLUS 
                 &kp N1              &kp N2              &kp N3 
-                &kp N0              &kp GRAVE           &kp ENTER
+                &kp N0              &kp DOT             &kp ENTER
 			>;
 		};
 
 		control {
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 			bindings = <
-		        &bootloader                                                  &kp SPACE
-                &ext_power EP_ON    &ext_power EP_OFF   &kp N3           &kp BSPC      
-                &rgb_ug RGB_EFF     &rgb_ug RGB_TOG     &rgb_ug RGB_EFR   
-                &kp N4              &kp N5              &kp N6           &kp MINUS 
+		       &bootloader                                                &kp SPACE
+                &rgb_ug RGB_TOG     &kp SLASH           &kp STAR           &kp MINUS      
+                &kp N7              &kp N8              &kp N9   
+                &kp N4              &kp N5              &kp N6             &kp PLUS 
                 &kp N1              &kp N2              &kp N3 
-                &kp N0                                  &kp GRAVE        &kp ENTER
+                &kp N0              &kp DOT             &kp ENTER
 			>;
 		};
 	};
