@@ -1,2 +1,2 @@
-config SHIELD_arionaryabhatta
-    def_bool $(shields_list_contains,arionaryabhatta)
+config SHIELD_arixaaryabhatta
+    def_bool $(shields_list_contains,arixaaryabhatta)
